@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Chat {
+public class  Chat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

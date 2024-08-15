@@ -24,4 +24,6 @@ public interface ProjectService {
 
     Chat getChatByProjectId(Long projectId)throws Exception;
 
+    List<Project> searchProject(String keyword,User user)throws Exception;
+
 }
