@@ -7,6 +7,7 @@ import com.axidAcid.model.User;
 import com.axidAcid.repository.UserRepository;
 import com.axidAcid.request.LoginRequest;
 import com.axidAcid.service.CustomUserDetailsImpl;
+import com.axidAcid.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +37,9 @@ public class AuthController {
     @Autowired
     private CustomUserDetailsImpl customUserDetails;
 
+    @Autowired
+    private SubscriptionService subscriptionService;
+
 
     @PostMapping("/signup")
     public ResponseEntity<AuthResponse>createUserHandler(@RequestBody User user)throws Exception{
@@ -49,6 +53,8 @@ public class AuthController {
         createdUSer.setFullName(user.getFullName());
 
         User saveUser =userRepository.save(createdUSer);
+
+        subscriptionService.createSubscription(saveUser);
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
         SecurityContextHolder.getContext().setAuthentication(authentication);

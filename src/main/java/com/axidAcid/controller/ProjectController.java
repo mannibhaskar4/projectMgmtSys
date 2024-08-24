@@ -33,7 +33,7 @@ public class ProjectController {
     public ResponseEntity<List<Project>> getProjects(
             @RequestParam(required = false) String category,
             @RequestParam(required = false) String tag,
-            @RequestParam("Authorization") String jwt
+            @RequestHeader("Authorization") String jwt
     )throws Exception{
         User user= userService.findUserProfileByJwt(jwt);
         List<Project> projects = projectService.getProjectByTeam(user,category,tag);
@@ -51,6 +51,8 @@ public class ProjectController {
 
         return new ResponseEntity<>(projects, HttpStatus.OK);
     }
+
+
     @PostMapping
     public ResponseEntity<Project> createProject(
             @RequestHeader("Authorization")String jwt,
@@ -89,7 +91,7 @@ public class ProjectController {
     @GetMapping("/search")
     public ResponseEntity<List<Project>> searchProjects(
             @RequestParam(required = false) String keyword,
-            @RequestParam("Authorization") String jwt
+            @RequestHeader("Authorization") String jwt
     )throws Exception{
         User user= userService.findUserProfileByJwt(jwt);
         List<Project> projects = projectService.searchProject(keyword,user);

@@ -8,23 +8,25 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class Comments {
-
+@AllArgsConstructor
+public class Subscription {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String content;
-    private LocalDateTime createdDateTime;
+    private LocalDate subscriptionStartDate;
 
-    @ManyToOne
+    private LocalDate getSubscriptionEndDate;
+
+    private PlanType planType;
+
+    private boolean isValid;
+
+    @OneToOne
     private User user;
-
-    @ManyToOne
-    private Issue issue;
 
 }
